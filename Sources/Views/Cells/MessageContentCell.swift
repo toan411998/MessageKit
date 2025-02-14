@@ -59,6 +59,15 @@ open class MessageContentCell: MessageCollectionViewCell {
     label.textAlignment = .center
     return label
   }()
+    
+    open var bgTopLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 8
+        
+        return view
+    }()
 
   /// The bottom label of the cell.
   open var cellBottomLabel: InsetLabel = {
@@ -103,6 +112,7 @@ open class MessageContentCell: MessageCollectionViewCell {
   open func setupSubviews() {
     contentView.addSubviews(
       accessoryView,
+      bgTopLabel,
       cellTopLabel,
       messageTopLabel,
       messageBottomLabel,
@@ -287,6 +297,13 @@ open class MessageContentCell: MessageCollectionViewCell {
     cellTopLabel.textInsets = attributes.cellTopLabelAlignment.textInsets
 
     cellTopLabel.frame = CGRect(origin: .zero, size: attributes.cellTopLabelSize)
+      
+      NSLayoutConstraint.activate([
+        bgTopLabel.topAnchor.constraint(equalTo: cellTopLabel.topAnchor),
+        bgTopLabel.bottomAnchor.constraint(equalTo: cellTopLabel.bottomAnchor),
+        bgTopLabel.widthAnchor.constraint(equalToConstant: attributes.cellTopLabelWidth + 16.0 * 3),
+        bgTopLabel.centerXAnchor.constraint(equalTo: cellTopLabel.centerXAnchor)
+      ])
   }
 
   /// Positions the cell's bottom label.

@@ -40,6 +40,7 @@ open class MessagesCollectionViewLayoutAttributes: UICollectionViewLayoutAttribu
     copy.messageLabelInsets = messageLabelInsets
     copy.cellTopLabelAlignment = cellTopLabelAlignment
     copy.cellTopLabelSize = cellTopLabelSize
+      copy.cellTopLabelWidth = cellTopLabelWidth
     copy.cellBottomLabelAlignment = cellBottomLabelAlignment
     copy.cellBottomLabelSize = cellBottomLabelSize
     copy.messageTimeLabelSize = messageTimeLabelSize
@@ -68,6 +69,7 @@ open class MessagesCollectionViewLayoutAttributes: UICollectionViewLayoutAttribu
 
   public var cellTopLabelAlignment = LabelAlignment(textAlignment: .center, textInsets: .zero)
   public var cellTopLabelSize: CGSize = .zero
+    public var cellTopLabelWidth: CGFloat = 0.0
 
   public var cellBottomLabelAlignment = LabelAlignment(textAlignment: .center, textInsets: .zero)
   public var cellBottomLabelSize: CGSize = .zero

@@ -51,6 +51,7 @@ open class MessageSizeCalculator: CellSizeCalculator {
     attributes.messageContainerSize = messageContainerSize(for: message, at: indexPath)
     attributes.cellTopLabelSize = cellTopLabelSize(for: message, at: indexPath)
     attributes.cellTopLabelAlignment = cellTopLabelAlignment(for: message)
+      attributes.cellTopLabelWidth = cellTopLabelWidth(for: message, at: indexPath)
     attributes.cellBottomLabelSize = cellBottomLabelSize(for: message, at: indexPath)
     attributes.messageTimeLabelSize = messageTimeLabelSize(for: message, at: indexPath)
     attributes.cellBottomLabelAlignment = cellBottomLabelAlignment(for: message)
@@ -153,6 +154,15 @@ open class MessageSizeCalculator: CellSizeCalculator {
     let height = layoutDelegate.cellTopLabelHeight(for: message, at: indexPath, in: collectionView)
     return CGSize(width: messagesLayout.itemWidth, height: height)
   }
+    
+    open func cellTopLabelWidth(for message: MessageType, at indexPath: IndexPath) -> CGFloat {
+        let dataSource = messagesLayout.messagesDataSource
+        guard let attributedText = dataSource.messageTopLabelAttributedText(for: message, at: indexPath) else {
+            return 0.0
+        }
+        let size = attributedText.size()
+        return size.width
+    }
 
   open func cellTopLabelAlignment(for message: MessageType) -> LabelAlignment {
     let dataSource = messagesLayout.messagesDataSource
