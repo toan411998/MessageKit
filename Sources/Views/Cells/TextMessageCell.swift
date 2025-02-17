@@ -30,7 +30,8 @@ open class TextMessageCell: MessageContentCell {
     open var translateButton: UIButton = {
         let button = UIButton()
         button.setTitle("", for: .normal)
-        button.setImage(UIImage(named: "ic-translate"), for: .normal)
+        let img = UIImage.messageKitImageWith(type: .translate)
+        button.setImage(img, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(onTapTranslate), for: .touchUpInside)
