@@ -142,6 +142,8 @@ final class AdvancedExampleViewController: ChatViewController {
     layout?.setMessageIncomingAccessoryViewPosition(.messageBottom)
     layout?.setMessageOutgoingAccessoryViewSize(CGSize(width: 30, height: 30))
     layout?.setMessageOutgoingAccessoryViewPadding(HorizontalEdgeInsets(left: 0, right: 8))
+    
+      layout?.setTopLabelHorizontalPadding(30)
 
     messagesCollectionView.messagesLayoutDelegate = self
     messagesCollectionView.messagesDisplayDelegate = self
@@ -352,6 +354,10 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
   func backgroundColor(for message: MessageType, at _: IndexPath, in _: MessagesCollectionView) -> UIColor {
     isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
   }
+    
+    func topLabelBackgroundColor(for message: any MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        .blue
+    }
 
   func messageStyle(for message: MessageType, at indexPath: IndexPath, in _: MessagesCollectionView) -> MessageStyle {
     var corners: UIRectCorner = []

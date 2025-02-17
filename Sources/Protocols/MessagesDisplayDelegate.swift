@@ -59,6 +59,10 @@ public protocol MessagesDisplayDelegate: AnyObject {
   ///   All other senders: Gray
   func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
     -> UIColor
+    
+    /// bg color for top label
+    func topLabelBackgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
+      -> UIColor
 
   /// The section header to use for a given `IndexPath`.
   ///
@@ -280,6 +284,10 @@ extension MessagesDisplayDelegate {
       return dataSource.isFromCurrentSender(message: message) ? .outgoingMessageBackground : .incomingMessageBackground
     }
   }
+    
+    public func topLabelBackgroundColor(for message: MessageType, at _: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return .gray
+    }
 
   public func messageHeaderView(
     for indexPath: IndexPath,

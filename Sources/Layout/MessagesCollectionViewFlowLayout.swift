@@ -321,6 +321,11 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
   public func setMessageOutgoingAccessoryViewPosition(_ newPosition: AccessoryPosition) {
     messageSizeCalculators().forEach { $0.outgoingAccessoryViewPosition = newPosition }
   }
+    
+    /// Set `topLabelHorizontalPadding` of all `MessageSizeCalculator`s
+    public func setTopLabelHorizontalPadding(_ newPadding: CGFloat) {
+        messageSizeCalculators().forEach { $0.topLabelHorizontalPadding = newPadding }
+    }
 
   // MARK: Internal
 

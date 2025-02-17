@@ -175,6 +175,8 @@ open class MessageContentCell: MessageCollectionViewCell {
     messageBottomLabel.attributedText = bottomMessageLabelText
     messageTimestampLabel.attributedText = messageTimestampLabelText
     messageTimestampLabel.isHidden = !messagesCollectionView.showMessageTimestampOnSwipeLeft
+      
+      bgTopLabel.backgroundColor = displayDelegate.topLabelBackgroundColor(for: message, at: indexPath, in: messagesCollectionView)
   }
 
   /// Handle tap gesture on contentView and its subviews.
@@ -301,7 +303,7 @@ open class MessageContentCell: MessageCollectionViewCell {
       NSLayoutConstraint.activate([
         bgTopLabel.topAnchor.constraint(equalTo: cellTopLabel.topAnchor),
         bgTopLabel.bottomAnchor.constraint(equalTo: cellTopLabel.bottomAnchor),
-        bgTopLabel.widthAnchor.constraint(equalToConstant: attributes.cellTopLabelWidth + 16.0 * 3),
+        bgTopLabel.widthAnchor.constraint(equalToConstant: attributes.cellTopLabelWidth),
         bgTopLabel.centerXAnchor.constraint(equalTo: cellTopLabel.centerXAnchor)
       ])
   }

@@ -157,11 +157,11 @@ open class MessageSizeCalculator: CellSizeCalculator {
     
     open func cellTopLabelWidth(for message: MessageType, at indexPath: IndexPath) -> CGFloat {
         let dataSource = messagesLayout.messagesDataSource
-        guard let attributedText = dataSource.messageTopLabelAttributedText(for: message, at: indexPath) else {
+        guard let attributedText = dataSource.cellTopLabelAttributedText(for: message, at: indexPath) else {
             return 0.0
         }
         let size = attributedText.size()
-        return size.width
+        return size.width + topLabelHorizontalPadding * 2.0
     }
 
   open func cellTopLabelAlignment(for message: MessageType) -> LabelAlignment {
@@ -295,6 +295,8 @@ open class MessageSizeCalculator: CellSizeCalculator {
 
   public var incomingAccessoryViewPosition: AccessoryPosition = .messageCenter
   public var outgoingAccessoryViewPosition: AccessoryPosition = .messageCenter
+    
+    public var topLabelHorizontalPadding: CGFloat = 12.0
 
   // MARK: - Helpers
 
