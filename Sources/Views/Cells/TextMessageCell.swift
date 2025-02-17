@@ -38,6 +38,10 @@ open class TextMessageCell: MessageContentCell {
         
         return button
     }()
+    
+    open var infoView = UIView()
+    open var infoLabel = UILabel()
+    open var padding: CGFloat = 12.0
 
   // MARK: - Properties
 
@@ -63,6 +67,8 @@ open class TextMessageCell: MessageContentCell {
     super.prepareForReuse()
     messageLabel.attributedText = nil
     messageLabel.text = nil
+      
+      infoView.isHidden = true
   }
 
   open override func setupSubviews() {
@@ -70,15 +76,34 @@ open class TextMessageCell: MessageContentCell {
     messageContainerView.addSubview(messageLabel)
       
       messageContainerView.addSubview(translateButton)
-      messageContainerView.bringSubviewToFront(translateButton)
-      translateButton.isUserInteractionEnabled = true
-      
       NSLayoutConstraint.activate([
-        translateButton.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -12.0),
+        translateButton.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -padding),
         translateButton.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor, constant: -8.0),
         translateButton.widthAnchor.constraint(equalToConstant: 24.0),
         translateButton.heightAnchor.constraint(equalToConstant: 24.0)
       ])
+      
+      self.addSubview(infoView)
+      infoView.translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+        infoView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+        infoView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        infoView.topAnchor.constraint(equalTo: messageContainerView.topAnchor),
+        infoView.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor),
+      ])
+//      infoView.backgroundColor = .red
+      infoView.layer.cornerRadius = 16
+      infoView.clipsToBounds = true
+      
+      infoView.addSubview(infoLabel)
+      infoLabel.translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+        infoLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: padding),
+        infoLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -padding),
+        infoLabel.topAnchor.constraint(equalTo: messageContainerView.topAnchor, constant: padding / 2.0),
+        infoLabel.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor, constant: -padding / 2.0),
+      ])
+      infoLabel.numberOfLines = 0
   }
 
   open override func configure(
@@ -106,16 +131,23 @@ open class TextMessageCell: MessageContentCell {
         let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
         messageLabel.text = text
         messageLabel.textColor = textColor
+          infoLabel.text = text
+          infoLabel.textColor = textColor
         if let font = messageLabel.messageLabelFont {
           messageLabel.font = font
+            infoLabel.font = font
         }
       case .attributedText(let text):
         messageLabel.attributedText = text
+          infoLabel.attributedText = text
       default:
         break
       }
     }
-      
+
+      infoView.backgroundColor = messageContainerView.backgroundColor
+      infoView.isHidden = !(indexPath.row == 0 && indexPath.section == 0)
+
       guard let dataSource = messagesCollectionView.messagesDataSource else {
           return
       }

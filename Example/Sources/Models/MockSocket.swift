@@ -81,14 +81,14 @@ final class MockSocket {
 
   @objc
   private func handleTimer() {
-    if let message = queuedMessage {
-      onNewMessageCode?(message)
-      queuedMessage = nil
-    } else {
-      let sender = connectedUsers.random()!
-      let message = SampleData.shared.randomMessage(allowedSenders: [sender])
-      queuedMessage = message
-      onTypingStatusCode?()
-    }
+//    if let message = queuedMessage {
+//      onNewMessageCode?(message)
+//      queuedMessage = nil
+//    } else {
+//      let sender = connectedUsers.random()!
+//      let message = SampleData.shared.randomMessage(allowedSenders: [sender])
+//      queuedMessage = message
+//      onTypingStatusCode?()
+//    }
   }
 }

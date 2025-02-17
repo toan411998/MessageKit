@@ -54,7 +54,11 @@ open class TextMessageSizeCalculator: MessageSizeCalculator {
     messageContainerSize.width += messageInsets.horizontal
       
       let dataSource = messagesLayout.messagesDataSource
-      messageContainerSize.height += messageInsets.vertical + (dataSource.isFromCurrentSender(message: message) ? 0.0 : 32.0)
+      if indexPath.row == 0 && indexPath.section == 0 {
+          messageContainerSize.height += messageInsets.vertical
+      } else {
+          messageContainerSize.height += messageInsets.vertical + (dataSource.isFromCurrentSender(message: message) ? 0.0 : 32.0)
+      }
 
     return messageContainerSize
   }
