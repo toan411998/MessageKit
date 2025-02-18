@@ -95,8 +95,8 @@ open class TextMessageCell: MessageContentCell {
       infoView.clipsToBounds = true
       
       infoView.removeBlurEffects()
-      let visualEffectView = UIVisualEffectView.init(effect: UIBlurEffect.init(style: .light))
-      visualEffectView.backgroundColor = UIColor.blur
+      let visualEffectView = UIVisualEffectView.init(effect: UIBlurEffect.init(style: .dark))
+      visualEffectView.backgroundColor = UIColor.blur.withAlphaComponent(0.2)
       infoView.addSubview(visualEffectView)
       visualEffectView.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
