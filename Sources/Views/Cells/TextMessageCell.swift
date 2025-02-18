@@ -86,14 +86,25 @@ open class TextMessageCell: MessageContentCell {
       self.addSubview(infoView)
       infoView.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
-        infoView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-        infoView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        infoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4.0),
+        infoView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4.0),
         infoView.topAnchor.constraint(equalTo: messageContainerView.topAnchor),
         infoView.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor),
       ])
-//      infoView.backgroundColor = .red
       infoView.layer.cornerRadius = 16
       infoView.clipsToBounds = true
+      
+      infoView.removeBlurEffects()
+      let visualEffectView = UIVisualEffectView.init(effect: UIBlurEffect.init(style: .light))
+      visualEffectView.backgroundColor = UIColor.blur
+      infoView.addSubview(visualEffectView)
+      visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+        visualEffectView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor),
+        visualEffectView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor),
+        visualEffectView.topAnchor.constraint(equalTo: infoView.topAnchor),
+        visualEffectView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor),
+      ])
       
       infoView.addSubview(infoLabel)
       infoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -147,6 +158,7 @@ open class TextMessageCell: MessageContentCell {
 
       infoView.backgroundColor = messageContainerView.backgroundColor
       infoView.isHidden = !(indexPath.row == 0 && indexPath.section == 0)
+      messageContainerView.isHidden = indexPath.row == 0 && indexPath.section == 0
 
       guard let dataSource = messagesCollectionView.messagesDataSource else {
           return

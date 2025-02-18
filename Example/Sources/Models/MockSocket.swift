@@ -81,6 +81,7 @@ final class MockSocket {
 
   @objc
   private func handleTimer() {
+      // TODO: auto gen new message
 //    if let message = queuedMessage {
 //      onNewMessageCode?(message)
 //      queuedMessage = nil

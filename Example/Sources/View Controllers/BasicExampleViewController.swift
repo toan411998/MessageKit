@@ -152,7 +152,7 @@ extension BasicExampleViewController: MessagesDisplayDelegate {
 
 extension BasicExampleViewController: MessagesLayoutDelegate {
   func cellTopLabelHeight(for _: MessageType, at _: IndexPath, in _: MessagesCollectionView) -> CGFloat {
-    18
+    28
   }
 
   func cellBottomLabelHeight(for _: MessageType, at _: IndexPath, in _: MessagesCollectionView) -> CGFloat {

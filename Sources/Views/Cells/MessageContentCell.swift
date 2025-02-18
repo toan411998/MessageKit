@@ -64,7 +64,7 @@ open class MessageContentCell: MessageCollectionViewCell {
         let view = UIView()
         view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 12
         
         return view
     }()

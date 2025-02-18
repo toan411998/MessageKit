@@ -139,4 +139,16 @@ extension UIView {
   internal func addSubviews(_ subviews: UIView...) {
     subviews.forEach { addSubview($0) }
   }
+    
+    /// Removes all `UIVisualEffectView` (blur effects) from the view and its subviews.
+    func removeBlurEffects() {
+        self.subviews.forEach { subview in
+            if let blurView = subview as? UIVisualEffectView {
+                blurView.removeFromSuperview()
+            } else {
+                // Recursively check subviews for embedded blur effects
+                subview.removeBlurEffects()
+            }
+        }
+    }
 }
