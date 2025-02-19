@@ -41,16 +41,52 @@ class CameraInputBarAccessoryView: InputBarAccessoryView {
     return manager
   }()
 
-  func configure() {
-    let camera = makeButton(named: "ic_camera")
-    camera.tintColor = .darkGray
-    camera.onTouchUpInside { [weak self] _ in
-      self?.showImagePickerControllerActionSheet()
+    func configure() {
+      let camera = makeButton(named: "ic_camera")
+      camera.tintColor = .darkGray
+      camera.onTouchUpInside { [weak self] _ in
+        self?.showImagePickerControllerActionSheet()
+      }
+        camera.setSize(CGSize(width: 24, height: 48), animated: false)
+        
+        inputTextView.textContainerInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+        inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 36)
+        if #available(iOS 13, *) {
+            inputTextView.layer.borderColor = UIColor.systemGray2.cgColor
+        } else {
+            inputTextView.layer.borderColor = UIColor.lightGray.cgColor
+        }
+        inputTextView.layer.borderWidth = 1.0
+        inputTextView.layer.cornerRadius = 16.0
+        inputTextView.layer.masksToBounds = true
+        inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        inputTextView.font = .systemFont(ofSize: 20)
+        setRightStackViewWidthConstant(to: 100, animated: false)
+        setStackViewItems([camera, InputBarButtonItem.fixedSpace(2), sendButton, InputBarButtonItem.fixedSpace(6)], forStack: .right, animated: false)
+        sendButton.imageView?.backgroundColor = tintColor
+        sendButton.setSize(CGSize(width: 48, height: 48), animated: false)
+        sendButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        sendButton.image = #imageLiteral(resourceName: "ic_up")
+        sendButton.title = nil
+        sendButton.imageView?.layer.cornerRadius = 16
+        sendButton.backgroundColor = .clear
+        middleContentViewPadding = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+        separatorLine.isHidden = true
+        isTranslucent = true
+        
+        inputPlugins = [attachmentManager]
+        topStackViewPadding = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        self.actionView.backgroundColor = .red
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 40))
+        button.setTitle("OK", for: .normal)
+        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        self.actionView.addSubview(button)
     }
-    setLeftStackViewWidthConstant(to: 35, animated: true)
-    setStackViewItems([camera], forStack: .left, animated: false)
-    inputPlugins = [attachmentManager]
-  }
+    
+    @objc func tapButton() {
+        print(#function)
+    }
 
   override func didSelectSendButton() {
     if attachmentManager.attachments.count > 0 {
