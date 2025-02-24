@@ -63,6 +63,9 @@ public protocol MessagesDisplayDelegate: AnyObject {
     /// bg color for top label
     func topLabelBackgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
       -> UIColor
+    
+    func topLabelPadding(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
+    -> CGFloat
 
   /// The section header to use for a given `IndexPath`.
   ///
@@ -287,6 +290,10 @@ extension MessagesDisplayDelegate {
     
     public func topLabelBackgroundColor(for message: MessageType, at _: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return .gray
+    }
+    
+    public func topLabelPadding(for message: MessageType, at _: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 12.0
     }
 
   public func messageHeaderView(

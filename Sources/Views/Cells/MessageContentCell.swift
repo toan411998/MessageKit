@@ -177,6 +177,18 @@ open class MessageContentCell: MessageCollectionViewCell {
     messageTimestampLabel.isHidden = !messagesCollectionView.showMessageTimestampOnSwipeLeft
       
       bgTopLabel.backgroundColor = displayDelegate.topLabelBackgroundColor(for: message, at: indexPath, in: messagesCollectionView)
+      if let size = topCellLabelText?.size() {
+          let width = size.width + displayDelegate.topLabelPadding(for: message, at: indexPath, in: messagesCollectionView) * 2.0
+          NSLayoutConstraint.activate([
+            bgTopLabel.topAnchor.constraint(equalTo: cellTopLabel.topAnchor),
+            bgTopLabel.bottomAnchor.constraint(equalTo: cellTopLabel.bottomAnchor),
+            bgTopLabel.widthAnchor.constraint(equalToConstant: width),
+            bgTopLabel.centerXAnchor.constraint(equalTo: cellTopLabel.centerXAnchor)
+          ])
+      } else {
+          bgTopLabel.removeConstraints(bgTopLabel.constraints)
+      }
+      
   }
 
   /// Handle tap gesture on contentView and its subviews.
@@ -300,12 +312,12 @@ open class MessageContentCell: MessageCollectionViewCell {
 
     cellTopLabel.frame = CGRect(origin: .zero, size: attributes.cellTopLabelSize)
       
-      NSLayoutConstraint.activate([
-        bgTopLabel.topAnchor.constraint(equalTo: cellTopLabel.topAnchor),
-        bgTopLabel.bottomAnchor.constraint(equalTo: cellTopLabel.bottomAnchor),
-        bgTopLabel.widthAnchor.constraint(equalToConstant: attributes.cellTopLabelWidth),
-        bgTopLabel.centerXAnchor.constraint(equalTo: cellTopLabel.centerXAnchor)
-      ])
+//      NSLayoutConstraint.activate([
+//        bgTopLabel.topAnchor.constraint(equalTo: cellTopLabel.topAnchor),
+//        bgTopLabel.bottomAnchor.constraint(equalTo: cellTopLabel.bottomAnchor),
+//        bgTopLabel.widthAnchor.constraint(equalToConstant: attributes.cellTopLabelWidth),
+//        bgTopLabel.centerXAnchor.constraint(equalTo: cellTopLabel.centerXAnchor)
+//      ])
   }
 
   /// Positions the cell's bottom label.
